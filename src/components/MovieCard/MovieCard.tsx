@@ -1,24 +1,29 @@
 import React from 'react';
-import type { Movie } from '../../data/mockMovies';
+import type { Movie } from '../../types/movie';
 
 interface MovieCardProps {
   movie: Movie;
 }
 
 export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
+  const title = movie.nameRu || movie.nameEn || 'Без названия';
+  const year = movie.year || '';
+  const genre = movie.genres?.[0]?.genre || '';
+  const rating = movie.ratingKinopoisk?.toFixed(1) || '';
+
   return (
     <div style={styles.card}>
       <div style={styles.posterWrapper}>
         <img 
-          src={movie.posterUrl} 
-          alt={movie.title} 
+          src={movie.posterUrlPreview} 
+          alt={title} 
           style={styles.poster}
         />
-        <span style={styles.rating}>{movie.rating}</span>
+        {rating && <span style={styles.rating}>{rating}</span>}
       </div>
       <div style={styles.info}>
-        <h3 style={styles.title}>{movie.title}</h3>
-        <p style={styles.meta}>{movie.year} • {movie.genre}</p>
+        <h3 style={styles.title}>{title}</h3>
+        <p style={styles.meta}>{year} {genre ? `• ${genre}` : ''}</p>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Movie } from '../../data/mockMovies';
+import type { Movie } from '../../types/movie';
 import { MovieCard } from '../MovieCard/MovieCard';
 
 interface MovieGridProps {
@@ -10,7 +10,7 @@ export const MovieGrid: React.FC<MovieGridProps> = ({ movies }) => {
   return (
     <div style={styles.grid}>
       {movies.map((movie) => (
-        <MovieCard key={movie.id} movie={movie} />
+        <MovieCard key={movie.kinopoiskId} movie={movie} />
       ))}
     </div>
   );
