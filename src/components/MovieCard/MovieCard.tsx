@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import type { Movie } from '../../types/movie';
 
 interface MovieCardProps {
@@ -12,20 +13,22 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
   const rating = movie.ratingKinopoisk?.toFixed(1) || '';
 
   return (
-    <div style={styles.card}>
-      <div style={styles.posterWrapper}>
-        <img 
-          src={movie.posterUrlPreview} 
-          alt={title} 
-          style={styles.poster}
-        />
-        {rating && <span style={styles.rating}>{rating}</span>}
+    <Link to={`/movie/${movie.kinopoiskId}`} style={{ textDecoration: 'none' }}>
+      <div style={styles.card}>
+        <div style={styles.posterWrapper}>
+          <img 
+            src={movie.posterUrlPreview} 
+            alt={title} 
+            style={styles.poster}
+          />
+          {rating && <span style={styles.rating}>{rating}</span>}
+        </div>
+        <div style={styles.info}>
+          <h3 style={styles.title}>{title}</h3>
+          <p style={styles.meta}>{year} {genre ? `• ${genre}` : ''}</p>
+        </div>
       </div>
-      <div style={styles.info}>
-        <h3 style={styles.title}>{title}</h3>
-        <p style={styles.meta}>{year} {genre ? `• ${genre}` : ''}</p>
-      </div>
-    </div>
+    </Link>
   );
 };
 

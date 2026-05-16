@@ -1,4 +1,4 @@
-import type { MoviesResponse } from '../types/movie';
+import type { MoviesResponse, MovieDetails } from '../types/movie';
 
 const API_KEY = import.meta.env.VITE_KINOPOISK_API_KEY;
 const BASE_URL = 'https://kinopoiskapiunofficial.tech/api/v2.2';
@@ -16,6 +16,25 @@ export const fetchPopularMovies = async (page: number = 1): Promise<MoviesRespon
   
   if (!response.ok) {
     throw new Error('Failed to fetch movies');
+  }
+  
+  return response.json();
+};
+
+//по Id узнаем фильм
+export const fetchMovieById = async (id: number): Promise<MovieDetails> => {
+  const response = await fetch(
+    `${BASE_URL}/films/${id}`,
+    {
+      headers: {
+        'X-API-KEY': API_KEY,
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+  
+  if (!response.ok) {
+    throw new Error('Failed to fetch movie details');
   }
   
   return response.json();
