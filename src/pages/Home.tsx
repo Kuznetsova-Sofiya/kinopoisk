@@ -1,45 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { MovieGrid } from '../components/MovieGrid/MovieGrid';
-import { fetchPopularMovies } from '../services/api';
-import type { Movie } from '../types/movie';
+import { loadMovies, clearMovies } from '../redux/slices/catalogSlice';
+import type { AppDispatch, RootState } from '../redux/store';
 
 export const Home: React.FC = () => {
-  const [movies, setMovies] = useState<Movie[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const loadMovies = async (page: number, reset: boolean = false) => {
-    try {
-      setLoading(true);
-      const data = await fetchPopularMovies(page);
-      
-      if (reset) {
-        setMovies(data.items);
-      } else {
-        setMovies(prev => [...prev, ...data.items]);
-      }
-      
-      setTotalPages(data.totalPages);
-      setError(null);
-    } catch (err) {
-      setError('Не удалось загрузить фильмы');
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const dispatch = useDispatch<AppDispatch>();
+  const { movies, currentPage, totalPages, loading, error } = useSelector(
+    (state: RootState) => state.catalog
+  );
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    loadMovies(1, true);
-  }, []);
+    dispatch(loadMovies({ page: 1, reset: true }));
+    
+    return () => {
+      dispatch(clearMovies());
+    };
+  }, [dispatch]);
 
   const handleShowMore = () => {
-    const nextPage = currentPage + 1;
-    setCurrentPage(nextPage);
-    loadMovies(nextPage, false);
+    if (currentPage < totalPages) {
+      dispatch(loadMovies({ page: currentPage + 1, reset: false }));
+    }
   };
 
   const hasMorePages = currentPage < totalPages;
@@ -54,11 +36,11 @@ export const Home: React.FC = () => {
       
       {loading && (
         <p style={{ color: '#aaa', textAlign: 'center', marginTop: '32px' }}>
-          Загрузка
+          Загрузка...
         </p>
       )}
       
-      {!loading && hasMorePages && (
+      {!loading && hasMorePages && movies.length > 0 && (
         <div style={styles.buttonWrapper}>
           <button onClick={handleShowMore} style={styles.button}>
             Show more

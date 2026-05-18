@@ -1,33 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchMovieById } from '../services/api';
-import type { MovieDetails } from '../types/movie';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadMovieById, clearMovie } from '../redux/slices/movieSlice';
+import type { AppDispatch, RootState } from '../redux/store';
 
 export const MoviePage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [movie, setMovie] = useState<MovieDetails | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const dispatch = useDispatch<AppDispatch>();
+  const { movie, loading, error } = useSelector((state: RootState) => state.movie);
 
   useEffect(() => {
-    const loadMovie = async () => {
-      if (!id) return;
-      
-      try {
-        setLoading(true);
-        const data = await fetchMovieById(Number(id));
-        setMovie(data);
-        setError(null);
-      } catch (err) {
-        setError('Не удалось загрузить информацию о фильме');
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
+    if (id) {
+      dispatch(loadMovieById(Number(id)));
+    }
+    
+    return () => {
+      dispatch(clearMovie());
     };
-
-    loadMovie();
-  }, [id]);
+  }, [id, dispatch]);
 
   if (loading) {
     return (
@@ -94,12 +84,6 @@ export const MoviePage: React.FC = () => {
               <span style={styles.detailLabel}>Жанр:</span>
               <span style={styles.detailValue}>{genres || 'Нет'}</span>
             </div>
-            {movie.slogan && (
-              <div style={styles.detailRow}>
-                <span style={styles.detailLabel}>Слоган:</span>
-                <span style={styles.detailValue}>"{movie.slogan}"</span>
-              </div>
-            )}
           </div>
         </div>
       </div>
