@@ -1,0 +1,51 @@
+.card {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  text-decoration: none;
+  display: block;
+}
+
+.posterWrapper {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.poster {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.rating {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #00bb34;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.info {
+  padding: 0 4px;
+}
+
+.title {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 6px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meta {
+  color: #aaa;
+  font-size: 14px;
+  margin: 0;
+}

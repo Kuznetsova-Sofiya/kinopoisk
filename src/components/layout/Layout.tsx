@@ -1,37 +1,20 @@
-import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { Header } from './Header';
-import { Footer } from './Footer';
-import { Sidebar } from './Sidebar';
+import { Header } from '../Header/Header';
+import { Footer } from '../Footer/Footer';
+import { Sidebar } from '../Sidebar/Sidebar';
+import styles from './Layout.module.scss';
 
-export const Layout: React.FC = () => {
+export const Layout = () => {
   return (
-    <div style={styles.container}>
+    <div className={styles.container}>
       <Header />
-      <div style={styles.main}>
+      <div className={styles.main}>
         <Sidebar />
-        <main style={styles.content}>
+        <main className={styles.content}>
           <Outlet />
         </main>
       </div>
       <Footer />
     </div>
   );
-};
-
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column' as const,
-    minHeight: '100vh',
-  },
-  main: {
-    display: 'flex',
-    flex: 1,
-  },
-  content: {
-    flex: 1,
-    padding: '24px',
-    backgroundColor: '#0d0d0d',
-  },
 };

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MovieGrid } from '../components/MovieGrid/MovieGrid';
-import { loadMovies, clearMovies } from '../redux/slices/catalogSlice';
+import { loadMovies, clearMovies } from '../redux/slices/catalog-slice';
 import type { AppDispatch, RootState } from '../redux/store';
 
 export const Home: React.FC = () => {

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadMovieById, clearMovie } from '../redux/slices/movieSlice';
+import { loadMovieById, clearMovie } from '../redux/slices/movie-slice';
 import type { AppDispatch, RootState } from '../redux/store';
 
 export const MoviePage: React.FC = () => {

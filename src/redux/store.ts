@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import catalogReducer from './slices/catalogSlice';
-import movieReducer from './slices/movieSlice';
+import catalogReducer from './slices/catalog-slice';
+import movieReducer from './slices/movie-slice';
 
 export const store = configureStore({
   reducer: {
