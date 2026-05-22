@@ -1,5 +1,6 @@
 export interface Movie {
   kinopoiskId: number;
+  filmId?: number;
   nameRu: string | null;
   nameEn: string | null;
   posterUrl: string;
