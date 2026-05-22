@@ -1,7 +1,9 @@
+@use '../../styles/variables' as *;
+
 .sidebar {
   width: 240px;
   background-color: #141414;
-  border-right: 1px solid #333;
+  border-right: 1px solid $border-color;
   padding: 24px 16px;
   min-height: calc(100vh - 120px);
 }
@@ -17,7 +19,7 @@
 }
 
 .navLink {
-  color: #ccc;
+  color: $text-gray;
   text-decoration: none;
   font-size: 16px;
   display: block;
@@ -26,7 +28,7 @@
   transition: all 0.2s;
 
   &:hover {
-    color: white;
-    background-color: #2a2a2a;
+    color: $text-white;
+    background-color: $bg-card;
   }
 }

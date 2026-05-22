@@ -9,8 +9,11 @@ interface MovieGridProps {
 export const MovieGrid = ({ movies }: MovieGridProps) => {
   return (
     <div className={styles.grid}>
-      {movies.map((movie) => (
-        <MovieCard key={movie.kinopoiskId} movie={movie} />
+      {movies.map((movie, index) => (
+        <MovieCard 
+          key={movie.kinopoiskId || `movie-${index}-${movie.nameRu || index}`} 
+          movie={movie} 
+        />
       ))}
     </div>
   );

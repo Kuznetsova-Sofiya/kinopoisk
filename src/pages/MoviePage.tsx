@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadMovieById, clearMovie } from '../redux/slices/movie-slice';
 import type { AppDispatch, RootState } from '../redux/store';
 
-export const MoviePage: React.FC = () => {
+export const MoviePage = () => {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch<AppDispatch>();
   const { movie, loading, error } = useSelector((state: RootState) => state.movie);

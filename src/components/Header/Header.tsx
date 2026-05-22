@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Header.module.scss';
 
 export const Header = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+    if (searchValue.trim()) {
+        navigate(`/search?q=${encodeURIComponent(searchValue.trim())}`);    
     }
   };
 
@@ -19,14 +19,15 @@ export const Header = () => {
         <h1>Kinopoisk</h1>
       </div>
 
-      <form onSubmit={handleSearch} className={styles.searchForm}>
+      <form onSubmit={handleSubmit} className={styles.searchForm}>
         <input
           type="text"
           placeholder="Поиск фильмов"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
           className={styles.searchInput}
         />
+        <button type="submit" className={styles.searchButton}>Search</button>
       </form>
     </header>
   );

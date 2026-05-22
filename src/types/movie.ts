@@ -27,8 +27,17 @@ export interface MovieDetails {
   countries: { country: string }[];
 }
 
-export interface MoviesResponse {
+// Формат ответа для v2.2 (популярные фильмы, коллекции)
+export interface PopularMoviesResponse {
   total: number;
   totalPages: number;
   items: Movie[];
+}
+
+// Формат ответа для v2.1 (поиск)
+export interface SearchMoviesResponse {
+  keyword: string;
+  pagesCount: number;
+  searchFilmsCountResult: number;
+  films: Movie[];
 }

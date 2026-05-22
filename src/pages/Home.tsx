@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MovieGrid } from '../components/MovieGrid/MovieGrid';
 import { loadMovies, clearMovies } from '../redux/slices/catalog-slice';
 import type { AppDispatch, RootState } from '../redux/store';
 
-export const Home: React.FC = () => {
+export const Home = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { movies, currentPage, totalPages, loading, error } = useSelector(
     (state: RootState) => state.catalog
@@ -36,7 +36,7 @@ export const Home: React.FC = () => {
       
       {loading && (
         <p style={{ color: '#aaa', textAlign: 'center', marginTop: '32px' }}>
-          Загрузка...
+          Загрузка
         </p>
       )}
       
@@ -66,6 +66,5 @@ const styles = {
     fontSize: '16px',
     fontWeight: '500',
     cursor: 'pointer',
-    transition: 'background-color 0.2s',
   },
 };

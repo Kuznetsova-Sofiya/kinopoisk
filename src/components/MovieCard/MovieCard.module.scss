@@ -1,3 +1,5 @@
+@use '../../styles/variables' as *;
+
 .card {
   cursor: pointer;
   transition: transform 0.2s ease;
@@ -22,8 +24,8 @@
   position: absolute;
   top: 10px;
   left: 10px;
-  background-color: #00bb34;
-  color: white;
+  background-color: $primary;
+  color: $text-white;
   padding: 4px 8px;
   border-radius: 6px;
   font-size: 12px;
@@ -35,7 +37,7 @@
 }
 
 .title {
-  color: white;
+  color: $text-white;
   font-size: 16px;
   font-weight: bold;
   margin: 0 0 6px 0;
@@ -45,7 +47,7 @@
 }
 
 .meta {
-  color: #aaa;
+  color: $text-gray;
   font-size: 14px;
   margin: 0;
 }
