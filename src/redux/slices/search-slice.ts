@@ -53,14 +53,14 @@ const applyFilters = (
       )
     );
   }
-  
+  //год
   if (yearFrom) {
     filtered = filtered.filter(movie => (movie.year || 0) >= Number(yearFrom));
   }
   if (yearTo) {
     filtered = filtered.filter(movie => (movie.year || 0) <= Number(yearTo));
   }
-  
+  //рейтинг
   if (ratingFrom) {
     filtered = filtered.filter(movie => (movie.ratingKinopoisk || 0) >= Number(ratingFrom));
   }
@@ -71,6 +71,7 @@ const applyFilters = (
   return filtered;
 };
 
+//асинхронный thunk для выполнения поиска фильмов
 export const performSearch = createAsyncThunk(
   'search/performSearch',
   async ({ query, page }: { query: string; page: number }) => {
@@ -193,11 +194,12 @@ const searchSlice = createSlice({
       })
       .addCase(performSearch.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || 'Search failed';
+        state.error = action.error.message || 'Ничего не найдено';
       });
   },
 });
 
+// селекторы для получения данных из redux
 export const selectSearchState = (state: { search: SearchState }) => state.search;
 
 export const selectFilteredMovies = createSelector(

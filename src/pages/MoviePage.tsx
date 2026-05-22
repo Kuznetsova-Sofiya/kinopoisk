@@ -1,23 +1,36 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadMovieById, clearMovie } from '../redux/slices/movie-slice';
 import type { AppDispatch, RootState } from '../redux/store';
 
 export const MoviePage = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const { movie, loading, error } = useSelector((state: RootState) => state.movie);
 
   useEffect(() => {
-    if (id) {
-      dispatch(loadMovieById(Number(id)));
+    // Проверяем, что id существует и это число
+    if (!id) {
+      navigate('/');
+      return;
     }
+    
+    const movieId = Number(id);
+    
+    // если id не число или меньше/равно 0 — редирект
+    if (isNaN(movieId) || movieId <= 0) {
+      navigate('/');
+      return;
+    }
+    
+    dispatch(loadMovieById(movieId));
     
     return () => {
       dispatch(clearMovie());
     };
-  }, [id, dispatch]);
+  }, [id, dispatch, navigate]);
 
   if (loading) {
     return (

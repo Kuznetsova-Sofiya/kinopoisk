@@ -18,9 +18,17 @@ const initialState: MovieState = {
 //асинхронный thunk загрузки информации о фильме
 export const loadMovieById = createAsyncThunk(
   'movie/loadMovieById',
-  async (id: number) => {
-    const data = await fetchMovieById(id);
-    return data;
+  async (id: number, { rejectWithValue }) => {
+    // проверка валидности id
+    if (isNaN(id) || id <= 0) {
+      return rejectWithValue('Invalid movie ID');
+    }
+    try {
+      const data = await fetchMovieById(id);
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Failed to load movie details');
+    }
   }
 );
 
@@ -45,7 +53,7 @@ const movieSlice = createSlice({
       })
       .addCase(loadMovieById.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || 'Не удалось загрузить информацию о фильме';
+        state.error = action.payload as string || 'Не удалось загрузить информацию о фильме';
       });
   },
 });

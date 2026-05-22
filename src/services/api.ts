@@ -3,7 +3,7 @@ import type { PopularMoviesResponse, MovieDetails, SearchMoviesResponse } from '
 const API_KEY = import.meta.env.VITE_KINOPOISK_API_KEY;
 const BASE_URL = 'https://kinopoiskapiunofficial.tech/api/v2.2';
 
-// Популярные фильмы (v2.2)
+// популярные фильмы (v2.2)
 export const fetchPopularMovies = async (page: number = 1): Promise<PopularMoviesResponse> => {
   const response = await fetch(
     `${BASE_URL}/films/collections?type=TOP_POPULAR_MOVIES&page=${page}`,
@@ -41,7 +41,7 @@ export const fetchMovieById = async (id: number): Promise<MovieDetails> => {
   return response.json();
 };
 
-// Поиск (v2.1)
+// поиск (v2.1)
 export const searchMovies = async (
   keyword: string,
   page: number = 1
