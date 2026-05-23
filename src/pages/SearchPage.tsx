@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { MovieGrid } from '../components/MovieGrid/MovieGrid';
+import { searchMovies } from '../services/api';
 import type { Movie } from '../types/movie';
 
 export const SearchPage = () => {
@@ -16,7 +17,6 @@ export const SearchPage = () => {
 
   // сбрасываем при новом поисковом запросе
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setAllMovies([]);
     setPage(1);
     setTotalPages(0);
@@ -30,40 +30,20 @@ export const SearchPage = () => {
     const fetchSearchResults = async () => {
       setLoading(true);
       setError(null);
-      
-      try {
-        const API_KEY = import.meta.env.VITE_KINOPOISK_API_KEY;
-        const url = `https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword=${encodeURIComponent(keyword)}&page=${page}`;
-        
-        const response = await fetch(url, {
-          headers: {
-            'X-API-KEY': API_KEY,
-            'Content-Type': 'application/json',
-          },
-        });
-        
-        if (!response.ok) {
-          throw new Error(`API error: ${response.status}`);
-        }
-        
-        const data = await response.json();
 
-        // v2.1 возвращает filmId вместо kinopoiskId — нормализуем
-        const films = (data.films || []).map((film: Movie) => ({
-          ...film,
-          kinopoiskId: film.kinopoiskId || film.filmId || 0,
-        }));
+      try {
+        const data = await searchMovies(keyword, page);
 
         if (page === 1) {
-          setAllMovies(films);
+          setAllMovies(data.films);
         } else {
-          setAllMovies(prev => [...prev, ...films]);
+          setAllMovies(prev => [...prev, ...data.films]);
         }
-        
+
         setTotalPages(data.pagesCount || 0);
         setHasSearched(true);
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred';
+        const errorMessage = err instanceof Error ? err.message : 'Неизвестная ошибка';
         setError(errorMessage);
       } finally {
         setLoading(false);
@@ -120,19 +100,19 @@ export const SearchPage = () => {
       <h1 style={{ color: 'white', marginBottom: '24px' }}>
         Результаты поиска: "{keyword}"
       </h1>
-      
+
       {allMovies.length === 0 ? (
         <p style={{ color: '#aaa' }}>Ничего не найдено</p>
       ) : (
         <>
           <MovieGrid movies={allMovies} />
-          
+
           {loading && (
             <p style={{ color: '#aaa', textAlign: 'center', marginTop: '32px' }}>
               Загрузка
             </p>
           )}
-          
+
           {!loading && hasMorePages && (
             <div style={styles.buttonWrapper}>
               <button onClick={handleShowMore} style={styles.button}>

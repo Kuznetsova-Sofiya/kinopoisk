@@ -75,7 +75,7 @@ export const MoviePage = () => {
             style={styles.poster}
           />
           <button onClick={handleFavoriteClick} style={styles.favoriteButton}>
-            {isFavorite ? '❤️ В избранном' : '�� Добавить в избранное'}
+            {isFavorite ? '❤️ В избранном' : '🤍 Добавить в избранное'}
           </button>
         </div>
 

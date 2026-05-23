@@ -42,7 +42,7 @@ export const loadTrends = createAsyncThunk(
       });
       
       if (response.status === 429) {
-        return rejectWithValue('Too many requests. Please wait a moment.');
+        return rejectWithValue('Слишком много запросов. Попробуйте позже.');
       }
       
       if (!response.ok) {
@@ -56,8 +56,9 @@ export const loadTrends = createAsyncThunk(
         totalPages: data.totalPages || 1, 
         page 
       };
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to load trends');
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'Не удалось загрузить тренды';
+      return rejectWithValue(message);
     }
   }
 );
@@ -97,7 +98,7 @@ const trendsSlice = createSlice({
       })
       .addCase(loadTrends.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string || 'Failed to load trends';
+        state.error = action.payload as string || 'Не удалось загрузить тренды';
       });
   },
 });

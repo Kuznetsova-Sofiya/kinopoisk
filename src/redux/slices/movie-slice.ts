@@ -21,13 +21,14 @@ export const loadMovieById = createAsyncThunk(
   async (id: number, { rejectWithValue }) => {
     // проверка валидности id
     if (isNaN(id) || id <= 0) {
-      return rejectWithValue('Invalid movie ID');
+      return rejectWithValue('Некорректный ID фильма');
     }
     try {
       const data = await fetchMovieById(id);
       return data;
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to load movie details');
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'Не удалось загрузить информацию о фильме';
+      return rejectWithValue(message);
     }
   }
 );

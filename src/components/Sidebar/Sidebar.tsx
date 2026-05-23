@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styles from './Sidebar.module.scss';
 
 export const Sidebar = () => {
   const menuItems = [
-    { path: '/', label: 'Home' },
-    { path: '/trends', label: 'Trends' },
-    { path: '/favorites', label: 'Favorites' },
+    { path: '/', label: 'Home', end: true },
+    { path: '/trends', label: 'Trends', end: false },
+    { path: '/favorites', label: 'Favorites', end: false },
   ];
 
   return (
@@ -14,9 +14,15 @@ export const Sidebar = () => {
         <ul className={styles.navList}>
           {menuItems.map((item) => (
             <li key={item.path} className={styles.navItem}>
-              <Link to={item.path} className={styles.navLink}>
+              <NavLink
+                to={item.path}
+                end={item.end}
+                className={({ isActive }) =>
+                  `${styles.navLink} ${isActive ? styles.active : ''}`
+                }
+              >
                 {item.label}
-              </Link>
+              </NavLink>
             </li>
           ))}
         </ul>

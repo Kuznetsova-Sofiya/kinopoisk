@@ -57,7 +57,7 @@ export const fetchFavoriteMovies = createAsyncThunk(
       
       return movies;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Failed to load favorites';
+      const message = err instanceof Error ? err.message : 'Не удалось загрузить избранное';
       return rejectWithValue(message);
     }
   }
@@ -103,7 +103,7 @@ const favoritesSlice = createSlice({
       })
       .addCase(fetchFavoriteMovies.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string || 'Failed to load favorites';
+        state.error = action.payload as string || 'Не удалось загрузить избранное';
       });
   },
 });
