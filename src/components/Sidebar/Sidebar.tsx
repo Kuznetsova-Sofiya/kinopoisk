@@ -2,7 +2,11 @@ import { Link } from 'react-router-dom';
 import styles from './Sidebar.module.scss';
 
 export const Sidebar = () => {
-  const menuItems = [{ path: '/', label: 'Home' }];
+  const menuItems = [
+    { path: '/', label: 'Home' },
+    { path: '/trends', label: 'Trends' },
+    //{ path: '/favorites', label: 'Favorites' },
+  ];
 
   return (
     <aside className={styles.sidebar}>
