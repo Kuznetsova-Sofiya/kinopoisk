@@ -5,7 +5,7 @@ export const Sidebar = () => {
   const menuItems = [
     { path: '/', label: 'Home' },
     { path: '/trends', label: 'Trends' },
-    //{ path: '/favorites', label: 'Favorites' },
+    { path: '/favorites', label: 'Favorites' },
   ];
 
   return (

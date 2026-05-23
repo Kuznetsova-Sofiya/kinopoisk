@@ -4,6 +4,7 @@ import { Home } from './pages/Home';
 import { MoviePage } from './pages/MoviePage';
 import { SearchPage } from './pages/SearchPage';
 import { Trends } from './pages/Trends';
+import { Favorites } from './pages/Favorites';
 
 const routes = [
   {
@@ -15,6 +16,7 @@ const routes = [
       { path: '/search', Component: SearchPage },
       { path: '/trends', Component: Trends },
       { path: '/trends/:page', Component: Trends },
+      { path: '/favorites', Component: Favorites },
     ],
   },
 ];

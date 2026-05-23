@@ -3,6 +3,7 @@ import catalogReducer from './slices/catalog-slice';
 import movieReducer from './slices/movie-slice';
 import searchReducer from './slices/search-slice';
 import trendsReducer from './slices/trends-slice';
+import favoritesReducer from './slices/favorites-slice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     movie: movieReducer,
     search: searchReducer,
     trends: trendsReducer,
+    favorites: favoritesReducer,
   },
 });
 

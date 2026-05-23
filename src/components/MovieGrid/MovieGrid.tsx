@@ -11,7 +11,7 @@ export const MovieGrid = ({ movies }: MovieGridProps) => {
     <div className={styles.grid}>
       {movies.map((movie, index) => (
         <MovieCard 
-          key={movie.kinopoiskId || `movie-${index}-${movie.nameRu || index}`} 
+          key={`${movie.kinopoiskId}-${index}`}
           movie={movie} 
         />
       ))}

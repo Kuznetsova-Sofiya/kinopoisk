@@ -16,6 +16,7 @@ export const SearchPage = () => {
 
   // сбрасываем при новом поисковом запросе
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setAllMovies([]);
     setPage(1);
     setTotalPages(0);

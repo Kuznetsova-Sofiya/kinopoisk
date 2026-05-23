@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadMovieById, clearMovie } from '../redux/slices/movie-slice';
+import { toggleFavorite } from '../redux/slices/favorites-slice';
 import type { AppDispatch, RootState } from '../redux/store';
 
 export const MoviePage = () => {
@@ -9,6 +10,8 @@ export const MoviePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const { movie, loading, error } = useSelector((state: RootState) => state.movie);
+  const favorites = useSelector((state: RootState) => state.favorites?.items || []);
+  const isFavorite = favorites.includes(Number(id));
 
   useEffect(() => {
     // Проверяем, что id существует и это число
@@ -19,7 +22,6 @@ export const MoviePage = () => {
     
     const movieId = Number(id);
     
-    // если id не число или меньше/равно 0 — редирект
     if (isNaN(movieId) || movieId <= 0) {
       navigate('/');
       return;
@@ -31,6 +33,13 @@ export const MoviePage = () => {
       dispatch(clearMovie());
     };
   }, [id, dispatch, navigate]);
+
+  const handleFavoriteClick = () => {
+    const movieId = Number(id);
+    if (!isNaN(movieId) && movieId > 0) {
+      dispatch(toggleFavorite(movieId));
+    }
+  };
 
   if (loading) {
     return (
@@ -80,6 +89,18 @@ export const MoviePage = () => {
             {movie.filmLength && (
               <span style={styles.lengthBadge}>{length}</span>
             )}
+            <button 
+              onClick={handleFavoriteClick}
+              style={{
+                background: 'none',
+                border: 'none',
+                fontSize: '24px',
+                cursor: 'pointer',
+                padding: '4px 8px',
+              }}
+            >
+              {isFavorite ? '❤️' : '🤍'}
+            </button>
           </div>
 
           <p style={styles.description}>{description}</p>
@@ -140,6 +161,7 @@ const styles = {
     display: 'flex',
     gap: '12px',
     marginBottom: '24px',
+    alignItems: 'center',
   },
   ratingBadge: {
     backgroundColor: '#00bb34',
