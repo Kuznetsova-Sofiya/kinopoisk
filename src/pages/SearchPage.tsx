@@ -47,11 +47,17 @@ export const SearchPage = () => {
         }
         
         const data = await response.json();
-        
+
+        // v2.1 возвращает filmId вместо kinopoiskId — нормализуем
+        const films = (data.films || []).map((film: Movie) => ({
+          ...film,
+          kinopoiskId: film.kinopoiskId || film.filmId || 0,
+        }));
+
         if (page === 1) {
-          setAllMovies(data.films || []);
+          setAllMovies(films);
         } else {
-          setAllMovies(prev => [...prev, ...(data.films || [])]);
+          setAllMovies(prev => [...prev, ...films]);
         }
         
         setTotalPages(data.pagesCount || 0);

@@ -12,28 +12,29 @@ interface MovieCardProps {
 export const MovieCard = ({ movie }: MovieCardProps) => {
   const dispatch = useDispatch();
   const favorites = useSelector((state: RootState) => state.favorites.items);
-  const isFavorite = favorites.includes(movie.kinopoiskId);
-  
+  const movieId = movie.kinopoiskId || movie.filmId || 0;
+  const isFavorite = favorites.includes(movieId);
+
   const title = movie.nameRu || movie.nameEn || 'Без названия';
   const year = movie.year || '';
   const genre = movie.genres?.[0]?.genre || '';
   const rating = movie.ratingKinopoisk?.toFixed(1) || '';
-  
+
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    dispatch(toggleFavorite(movie.kinopoiskId));
+    if (movieId) dispatch(toggleFavorite(movieId));
   };
 
   return (
-    <Link to={`/movie/${movie.kinopoiskId}`} className={styles.card}>
+    <Link to={`/movie/${movieId}`} className={styles.card}>
       <div className={styles.posterWrapper}>
         <img src={movie.posterUrlPreview} alt={title} className={styles.poster} />
         {rating && <span className={styles.rating}>{rating}</span>}
-        <button 
+        <button
           className={`${styles.favoriteBtn} ${isFavorite ? styles.active : ''}`}
           onClick={handleFavoriteClick}
-          aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+          aria-label={isFavorite ? 'Убрать из избранного' : 'Добавить в избранное'}
         >
           {isFavorite ? '❤️' : '🤍'}
         </button>

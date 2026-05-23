@@ -11,11 +11,12 @@ export const Favorites = () => {
   const loading = useSelector((state: RootState) => state.favorites.loading);
   const error = useSelector((state: RootState) => state.favorites.error);
 
+  // Загружаем каждый раз при входе и при изменении списка ID
   useEffect(() => {
-    if (favoritesIds.length > 0 && favoriteMovies.length === 0 && !loading) {
+    if (favoritesIds.length > 0) {
       dispatch(fetchFavoriteMovies(favoritesIds));
     }
-  }, [favoritesIds, favoriteMovies.length, loading, dispatch]);
+  }, [favoritesIds.length, dispatch]);
 
   if (loading) {
     return (

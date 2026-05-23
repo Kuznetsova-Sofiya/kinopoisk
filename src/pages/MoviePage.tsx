@@ -74,6 +74,9 @@ export const MoviePage = () => {
             alt={title} 
             style={styles.poster}
           />
+          <button onClick={handleFavoriteClick} style={styles.favoriteButton}>
+            {isFavorite ? '❤️ В избранном' : '�� Добавить в избранное'}
+          </button>
         </div>
 
         <div style={styles.infoColumn}>
@@ -89,18 +92,6 @@ export const MoviePage = () => {
             {movie.filmLength && (
               <span style={styles.lengthBadge}>{length}</span>
             )}
-            <button 
-              onClick={handleFavoriteClick}
-              style={{
-                background: 'none',
-                border: 'none',
-                fontSize: '24px',
-                cursor: 'pointer',
-                padding: '4px 8px',
-              }}
-            >
-              {isFavorite ? '❤️' : '🤍'}
-            </button>
           </div>
 
           <p style={styles.description}>{description}</p>
@@ -136,6 +127,21 @@ const styles = {
   },
   posterColumn: {
     flex: '0 0 300px',
+  },
+  favoriteButton: {
+    marginTop: '16px',
+    width: '100%',
+    padding: '12px',
+    backgroundColor: '#242426',
+    color: 'white',
+    border: '1px solid #444',
+    borderRadius: '12px',
+    fontSize: '15px',
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '8px',
   },
   poster: {
     width: '100%',
