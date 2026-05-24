@@ -1,0 +1,104 @@
+@use '../../styles/variables' as *;
+
+.panel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+  padding: 16px 20px;
+  background-color: #141414;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+}
+
+.select {
+  flex: 1;
+  min-width: 160px;
+  max-width: 240px;
+  padding: 10px 14px;
+  background-color: #1e1e1e;
+  color: $text-white;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23aaa' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+
+  &:focus {
+    border-color: $primary;
+  }
+
+  option {
+    background-color: #1e1e1e;
+  }
+}
+
+.yearInput {
+  width: 110px;
+  padding: 10px 14px;
+  background-color: #1e1e1e;
+  color: $text-white;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+
+  &:focus {
+    border-color: $primary;
+  }
+
+  &::placeholder {
+    color: $text-gray;
+  }
+
+  // убираем стрелки у number input
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    appearance: none;
+  }
+}
+
+.applyBtn {
+  padding: 10px 20px;
+  background-color: $primary;
+  color: $text-white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+
+  &:hover {
+    opacity: 0.85;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.resetBtn {
+  padding: 10px 20px;
+  background-color: transparent;
+  color: $text-gray;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+
+  &:hover {
+    color: $text-white;
+    border-color: #666;
+  }
+}

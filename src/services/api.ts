@@ -1,4 +1,4 @@
-import type { Movie, PopularMoviesResponse, MovieDetails, SearchMoviesResponse } from '../types/movie';
+import type { Movie, PopularMoviesResponse, MovieDetails, SearchMoviesResponse, FiltersResponse, FilteredMoviesResponse } from '../types/movie';
 
 const API_KEY = import.meta.env.VITE_KINOPOISK_API_KEY;
 const BASE_URL = 'https://kinopoiskapiunofficial.tech/api/v2.2';
@@ -59,4 +59,40 @@ export const searchMovies = async (
   }));
 
   return { ...data, films };
+};
+
+// список жанров и стран для фильтров
+export const fetchGenres = async (): Promise<FiltersResponse> => {
+  const response = await fetch(`${BASE_URL}/films/filters`, { headers });
+
+  if (!response.ok) {
+    throw new Error('Не удалось загрузить список жанров');
+  }
+
+  return response.json();
+};
+
+// фильтрация фильмов (v2.2/films)
+export const fetchFilteredMovies = async (params: {
+  genreId?: number;
+  yearFrom?: number;
+  yearTo?: number;
+  order?: 'RATING' | 'NUM_VOTE' | 'YEAR';
+  page?: number;
+}): Promise<FilteredMoviesResponse> => {
+  const query = new URLSearchParams();
+  query.set('type', 'ALL');
+  query.set('order', params.order ?? 'RATING');
+  query.set('page', String(params.page ?? 1));
+  if (params.genreId) query.set('genres', String(params.genreId));
+  if (params.yearFrom) query.set('yearFrom', String(params.yearFrom));
+  if (params.yearTo) query.set('yearTo', String(params.yearTo));
+
+  const response = await fetch(`${BASE_URL}/films?${query.toString()}`, { headers });
+
+  if (!response.ok) {
+    throw new Error('Не удалось загрузить фильмы');
+  }
+
+  return response.json();
 };

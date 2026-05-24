@@ -1,3 +1,19 @@
+export interface Genre {
+  id: number;
+  genre: string;
+}
+
+export interface FiltersResponse {
+  genres: Genre[];
+  countries: { id: number; country: string }[];
+}
+
+export interface FilteredMoviesResponse {
+  total: number;
+  totalPages: number;
+  items: Movie[];
+}
+
 export interface Movie {
   kinopoiskId: number;
   filmId?: number;
