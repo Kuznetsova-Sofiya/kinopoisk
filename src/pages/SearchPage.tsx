@@ -61,7 +61,6 @@ export const SearchPage = () => {
 
   const hasMorePages = page < totalPages;
 
-  // показываем сообщение, если не было поиска
   if (!hasSearched && !loading && !keyword) {
     return (
       <div>
@@ -71,7 +70,6 @@ export const SearchPage = () => {
     );
   }
 
-  // первая загрузка
   if (loading && allMovies.length === 0) {
     return (
       <div>

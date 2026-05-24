@@ -33,7 +33,7 @@ export const fetchMovieById = async (id: number): Promise<MovieDetails> => {
   return response.json();
 };
 
-// поиск (v2.1)
+// поиск (v2.1) — нормализует filmId -> kinopoiskId
 export const searchMovies = async (
   keyword: string,
   page: number = 1

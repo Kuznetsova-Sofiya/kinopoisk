@@ -65,7 +65,7 @@ export const Home = () => {
 
       {loading && (
         <p style={{ color: '#aaa', textAlign: 'center', marginTop: '32px' }}>
-          Загрузка
+          Загрузка...
         </p>
       )}
 
