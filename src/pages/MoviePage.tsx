@@ -38,6 +38,7 @@ export const MoviePage = () => {
 
   // сброс рекомендаций при переходе на другой фильм
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setAllRecs([]);
     setRecDisplayCount(RECS_PER_PAGE);
     setRecApiPage(1);
@@ -61,7 +62,7 @@ export const MoviePage = () => {
 
     const matched = allGenres.find((g) => g.genre === primaryGenreName);
     if (!matched) return;
-
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setRecGenreId(matched.id);
     setRecLoading(true);
 

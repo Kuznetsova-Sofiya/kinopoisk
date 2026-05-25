@@ -25,7 +25,6 @@ export const FilterPanel = () => {
   const handleApply = () => {
     if (!selectedGenre && !yearFrom && !yearTo) {
       dispatch(resetFilters());
-      onReset();
       return;
     }
     dispatch(
